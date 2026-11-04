@@ -1,0 +1,50 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaTest.ViewModels"
+        xmlns:nav="using:AvaloniaTest.Navigation"
+        xmlns:views="using:AvaloniaTest.Views"
+        x:Class="AvaloniaTest.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="AvaloniaTest"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="960"
+        Height="640"
+        MinWidth="800"
+        MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        Padding="16"
+        Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+
+    <!-- Компоновка по эталону: меню разделов сверху, активный раздел слева, AuthView справа. -->
+    <Grid RowDefinitions="Auto,*" RowSpacing="16">
+
+        <!-- Меню разделов: SelectedItem двусторонне связан с CurrentSection,
+             поэтому вся навигация остаётся в ViewModel. -->
+        <ListBox Grid.Row="0"
+                 Classes="menu"
+                 HorizontalAlignment="Center"
+                 ItemsSource="{Binding Sections}"
+                 SelectedItem="{Binding CurrentSection, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="nav:ISectionViewModel">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Classes="glyph" Text="{Binding Icon}" />
+                        <TextBlock VerticalAlignment="Center" Text="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,320" ColumnSpacing="16">
+
+            <!-- Содержимое активного раздела; нужный View подбирает ViewLocator. -->
+            <Border Grid.Column="0" Classes="card">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ContentControl Content="{Binding CurrentSection}" />
+                </ScrollViewer>
+            </Border>
+
+            <views:AuthView Grid.Column="1" DataContext="{Binding Auth}" />
+        </Grid>
+    </Grid>
+</Window>

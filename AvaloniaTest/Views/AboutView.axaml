@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaTest.ViewModels"
+             x:Class="AvaloniaTest.Views.AboutView"
+             x:DataType="vm:AboutViewModel">
+
+    <StackPanel Spacing="12">
+
+        <!-- Заголовок раздела: глиф и название берутся из AboutViewModel. -->
+        <StackPanel Classes="hstack" Spacing="10">
+            <TextBlock Classes="glyph" FontSize="24" Text="{Binding Icon}" />
+            <TextBlock Classes="h1" VerticalAlignment="Center" Text="{Binding Title}" />
+        </StackPanel>
+
+        <!-- Карточка «метка — значение». Значения можно выделять и копировать. -->
+        <Border Classes="card">
+            <Grid ColumnDefinitions="200,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10">
+                <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Разработчик" />
+                <SelectableTextBlock Grid.Row="0" Grid.Column="1" Classes="value" Text="{Binding DeveloperName}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Classes="label" Text="Специализация" />
+                <SelectableTextBlock Grid.Row="1" Grid.Column="1" Classes="value" Text="{Binding Specialization}" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Classes="label" Text="GitHub" />
+                <SelectableTextBlock Grid.Row="2" Grid.Column="1" Classes="value linkText" Text="{Binding GitHub}" />
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Classes="label" Text="Email" />
+                <SelectableTextBlock Grid.Row="3" Grid.Column="1" Classes="value linkText" Text="{Binding Email}" />
+            </Grid>
+        </Border>
+
+        <Border Classes="card">
+            <StackPanel Spacing="8">
+                <TextBlock Classes="h2" Text="Стек этого приложения" />
+                <SelectableTextBlock Classes="value" TextWrapping="Wrap" Text="{Binding Technologies}" />
+            </StackPanel>
+        </Border>
+
+        <Border Classes="card">
+            <StackPanel Spacing="8">
+                <TextBlock Classes="h2" Text="О реализации" />
+                <SelectableTextBlock Classes="value" TextWrapping="Wrap" Text="{Binding Summary}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

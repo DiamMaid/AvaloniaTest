@@ -1,0 +1,180 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================== Текст ============================== -->
+
+    <!-- Крупный заголовок окна или раздела. -->
+    <Style Selector="TextBlock.h1">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    </Style>
+
+    <!-- Заголовок карточки или блока. -->
+    <Style Selector="TextBlock.h2">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    </Style>
+
+    <!-- Поясняющий, приглушённый текст. -->
+    <Style Selector="TextBlock.secondary">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+    </Style>
+
+    <!-- Метка в списке «метка — значение». -->
+    <Style Selector="TextBlock.label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+    </Style>
+
+    <!-- Значение в списке «метка — значение». -->
+    <Style Selector="TextBlock.value">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+    </Style>
+
+    <!-- Сообщение об ошибке, пришедшее из ViewModel. -->
+    <Style Selector="TextBlock.error">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+    </Style>
+
+    <!-- Глиф из шрифта Segoe: иконки разделов в меню и в заголовках. -->
+    <Style Selector="TextBlock.glyph">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons,Segoe MDL2 Assets" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumHighBrush}" />
+    </Style>
+
+    <!-- Текст, который выглядит как ссылка. -->
+    <Style Selector="TextBlock.linkText">
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
+    </Style>
+
+    <!-- ============================ Контейнеры ============================ -->
+
+    <!-- Карточка содержимого. -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <!-- Вертикальный стек с одинаковым шагом. -->
+    <Style Selector="StackPanel.stack">
+        <Setter Property="Spacing" Value="8" />
+    </Style>
+
+    <!-- Горизонтальный стек с одинаковым шагом. -->
+    <Style Selector="StackPanel.hstack">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Spacing" Value="8" />
+    </Style>
+
+    <!-- ============================== Ввод ============================== -->
+
+    <!-- Поле формы. -->
+    <Style Selector="TextBox.form">
+        <Setter Property="MinHeight" Value="34" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <!-- ============================= Кнопки ============================= -->
+
+    <!-- Основное действие. -->
+    <Style Selector="Button.accent">
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHighlightAltChromeWhiteBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="16,6" />
+    </Style>
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListAccentMediumBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHighlightAltChromeWhiteBrush}" />
+    </Style>
+    <Style Selector="Button.accent:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListAccentHighBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHighlightAltChromeWhiteBrush}" />
+    </Style>
+    <Style Selector="Button.accent:disabled /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlDisabledChromeDisabledHighBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseHighBrush}" />
+    </Style>
+
+    <!-- Второстепенное действие, оформленное как ссылка. -->
+    <Style Selector="Button.link">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0,2" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkBaseHighBrush}" />
+    </Style>
+    <Style Selector="Button.link:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHyperlinkBaseMediumBrush}" />
+    </Style>
+
+    <!-- ============================== Прочее ============================== -->
+
+    <!-- Меню разделов: горизонтальный ряд кнопок-переключателей вверху окна. -->
+    <Style Selector="ListBox.menu">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="8" />
+            </ItemsPanelTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="ListBox.menu ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="14,8" />
+    </Style>
+    <Style Selector="ListBox.menu ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListAccentLowBrush}" />
+    </Style>
+    <Style Selector="ListBox.menu ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+    </Style>
+    <Style Selector="ListBox.menu ListBoxItem:selected TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHighlightAltChromeWhiteBrush}" />
+    </Style>
+    <Style Selector="ListBox.menu ListBoxItem:selected TextBlock.glyph">
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlHighlightAltChromeWhiteBrush}" />
+    </Style>
+
+    <!-- Тонкая неопределённая полоса прогресса: ProgressRing в Avalonia 12 отсутствует. -->
+    <Style Selector="ProgressBar.busy">
+        <Setter Property="Height" Value="4" />
+        <Setter Property="MinHeight" Value="4" />
+        <Setter Property="Margin" Value="0,4,0,8" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+
+</Styles>

@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaTest.ViewModels"
+        xmlns:conv="using:Avalonia.Data.Converters"
+        x:Class="AvaloniaTest.Views.RegisterWindow"
+        x:DataType="vm:RegisterViewModel"
+        Title="Регистрация"
+        Width="420"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Padding="20">
+
+    <StackPanel Spacing="4">
+        <TextBlock Classes="h1" FontSize="20" Margin="0,0,0,12" Text="Новая учётная запись" />
+        <TextBlock Classes="secondary"
+                   Margin="0,0,0,16"
+                   Text="Укажите email, имя и пароль. Пароль должен содержать не менее 6 символов." />
+
+        <TextBlock Classes="label" Margin="0,0,0,4" Text="Email" />
+        <TextBox Classes="form"
+                 PlaceholderText="Email"
+                 Text="{Binding Email, Mode=TwoWay}" />
+
+        <TextBlock Classes="label" Margin="0,0,0,4" Text="Имя" />
+        <TextBox Classes="form"
+                 PlaceholderText="Имя"
+                 Text="{Binding Name, Mode=TwoWay}" />
+
+        <TextBlock Classes="label" Margin="0,0,0,4" Text="Пароль" />
+        <TextBox Classes="form"
+                 Margin="0"
+                 PlaceholderText="Пароль"
+                 PasswordChar="•"
+                 Text="{Binding Password, Mode=TwoWay}" />
+
+        <!-- Ошибка валидации или ответ сервера. -->
+        <TextBlock Classes="error"
+                   Margin="0,10,0,0"
+                   IsVisible="{Binding ErrorMessage, Converter={x:Static conv:StringConverters.IsNotNullOrEmpty}}"
+                   Text="{Binding ErrorMessage}" />
+
+        <!-- Индикатор занятости. Окно закрывает DialogService по событию CloseRequested. -->
+        <StackPanel Classes="hstack" Margin="0,10,0,0" IsVisible="{Binding IsBusy}">
+            <ProgressBar Classes="busy"
+                         Width="120"
+                         Margin="0"
+                         VerticalAlignment="Center"
+                         IsIndeterminate="True" />
+            <TextBlock Classes="secondary" VerticalAlignment="Center" Text="Регистрация..." />
+        </StackPanel>
+
+        <StackPanel Classes="hstack" Margin="0,16,0,0" HorizontalAlignment="Right">
+            <Button Command="{Binding CancelCommand}"
+                    Content="Отмена"
+                    IsEnabled="{Binding !IsBusy}" />
+            <Button Classes="accent"
+                    Command="{Binding SubmitCommand}"
+                    Content="Зарегистрироваться"
+                    IsEnabled="{Binding !IsBusy}" />
+        </StackPanel>
+
+        <Button Classes="link"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Left"
+                Command="{Binding ResetCommand}"
+                Content="Очистить поля"
+                IsEnabled="{Binding !IsBusy}" />
+    </StackPanel>
+</Window>

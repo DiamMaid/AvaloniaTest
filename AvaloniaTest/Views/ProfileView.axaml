@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaTest.ViewModels"
+             xmlns:conv="using:Avalonia.Data.Converters"
+             x:Class="AvaloniaTest.Views.ProfileView"
+             x:DataType="vm:ProfileViewModel">
+
+    <Grid RowDefinitions="Auto,*" RowSpacing="12">
+
+        <!-- Заголовок раздела и повторная загрузка профиля. -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <StackPanel Grid.Column="0" Classes="hstack" Spacing="10" VerticalAlignment="Center">
+                <TextBlock Classes="glyph" FontSize="22" Text="{Binding Icon}" />
+                <TextBlock Classes="h1" VerticalAlignment="Center" Text="{Binding Title}" />
+            </StackPanel>
+
+            <Button Grid.Column="1"
+                    Classes="accent"
+                    Command="{Binding RefreshCommand}"
+                    Content="Обновить"
+                    IsEnabled="{Binding !IsBusy}" />
+        </Grid>
+
+        <!-- ============ Состояние 1: сессии нет — просьба авторизоваться ============ -->
+        <Border Grid.Row="1" Classes="card" VerticalAlignment="Top" IsVisible="{Binding !IsAuthenticated}">
+            <StackPanel Margin="0,24" HorizontalAlignment="Center" Spacing="6">
+                <TextBlock Classes="h2" HorizontalAlignment="Center" Text="Требуется авторизация" />
+                <TextBlock Classes="secondary"
+                           MaxWidth="420"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           Text="Чтобы увидеть данные профиля, пожалуйста, авторизуйтесь или зарегистрируйтесь. Форма входа находится в нижней части окна, а создать новый аккаунт можно кнопкой «Регистрация»." />
+            </StackPanel>
+        </Border>
+
+        <!-- ============ Состояние 2: пользователь авторизован ============ -->
+        <!-- Привязки к User.* вычисляются только внутри этой панели: она скрыта, пока User равен null. -->
+        <StackPanel Grid.Row="1" Spacing="12" IsVisible="{Binding IsAuthenticated}">
+
+            <!-- Аватар, имя и роль. -->
+            <Border Classes="card">
+                <StackPanel Orientation="Horizontal" Spacing="20">
+                    <Border Width="96"
+                            Height="96"
+                            Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                            CornerRadius="48">
+                        <Image Width="96" Height="96" Source="{Binding Avatar}" Stretch="UniformToFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="48,48" RadiusX="48" RadiusY="48" />
+                            </Image.Clip>
+                        </Image>
+                    </Border>
+
+                    <StackPanel Spacing="4" VerticalAlignment="Center">
+                        <TextBlock Classes="h2" Text="{Binding User.Name}" />
+                        <TextBlock Classes="secondary" Text="{Binding User.Role}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Поля профиля: id, email, имя, роль и ссылка на аватар. -->
+            <Border Classes="card">
+                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="10">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="ID" />
+                    <SelectableTextBlock Grid.Row="0" Grid.Column="1" Classes="value" Text="{Binding User.Id}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Classes="label" Text="Email" />
+                    <SelectableTextBlock Grid.Row="1" Grid.Column="1" Classes="value" Text="{Binding User.Email}" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Classes="label" Text="Имя" />
+                    <SelectableTextBlock Grid.Row="2" Grid.Column="1" Classes="value" Text="{Binding User.Name}" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Classes="label" Text="Роль" />
+                    <SelectableTextBlock Grid.Row="3" Grid.Column="1" Classes="value" Text="{Binding User.Role}" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Classes="label" Text="Аватар (ссылка)" />
+                    <SelectableTextBlock Grid.Row="4" Grid.Column="1" Classes="value" Text="{Binding User.AvatarUrl}" />
+                </Grid>
+            </Border>
+
+            <!-- Индикатор занятости. -->
+            <StackPanel Classes="hstack" IsVisible="{Binding IsBusy}">
+                <ProgressBar Classes="busy"
+                             Width="120"
+                             Margin="0"
+                             VerticalAlignment="Center"
+                             IsIndeterminate="True" />
+                <TextBlock Classes="secondary" VerticalAlignment="Center" Text="Загрузка профиля..." />
+            </StackPanel>
+
+            <!-- Ошибка. -->
+            <TextBlock Classes="error"
+                       IsVisible="{Binding ErrorMessage, Converter={x:Static conv:StringConverters.IsNotNullOrEmpty}}"
+                       Text="{Binding ErrorMessage}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
