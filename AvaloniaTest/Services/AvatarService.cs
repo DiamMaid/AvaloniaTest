@@ -29,27 +29,15 @@ public sealed class AvatarService : IAvatarService
         {
             // Хост аватаров (https://avatar.vercel.sh/...) отличается от BaseAddress API,
             // но абсолютный URI перекрывает BaseAddress — запрос уходит на нужный хост.
-            await using var stream = await _http.GetStreamAsync(url, ct);
+            // Байты читаются целиком: декодеру изображения нужен поток с произвольным
+            // доступом, а сетевой поток GetStreamAsync его не гарантирует.
+            var bytes = await _http.GetByteArrayAsync(url, ct);
+            using var stream = new MemoryStream(bytes);
             return new Bitmap(stream);
         }
-        catch (HttpRequestException)
+        catch (Exception)
         {
-            return null;
-        }
-        catch (TaskCanceledException)
-        {
-            return null;
-        }
-        catch (InvalidOperationException)
-        {
-            return null;
-        }
-        catch (FormatException)
-        {
-            return null;
-        }
-        catch (ArgumentException)
-        {
+            // Аватар не должен ронять экран профиля: любая ошибка загрузки означает «без картинки».
             return null;
         }
     }
